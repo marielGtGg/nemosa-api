@@ -9,7 +9,7 @@ class Entity {
         $this->url = $this->getUrl();
     }
 
-    protected function getUrl() {
+    public function getUrl() {
         if (isset($this->name)) {
             return $this->unaccent(strtolower(str_replace('--', '-', str_replace('---', '-', str_replace("'", '-', str_replace(' ', '-', $this->name))))));
         }
