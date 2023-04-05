@@ -2,7 +2,7 @@
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Headers: *');
 
-define('ROOT', dirname(__DIR__));
+define('ROOT', __DIR__);
 
 require ROOT . '/app/App.php';
 App::load();
