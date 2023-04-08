@@ -29,4 +29,11 @@ class ProductController {
         $this->render(ROOT . '/app/view/product.single.php', compact('product'));
     }
 
+    public function all() {
+        return $this->productTable->all(); 
+    }
+
+    public function find() {
+        return $this->productTable->find($_GET['id']);
+    }
 }

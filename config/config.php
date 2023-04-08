@@ -4,5 +4,6 @@ return [
     'db_name' => 'nemosa_dev',
     'db_server' => 'localhost',
     'db_user' => '',
-    'db_password' => ''
+    'db_password' => '',
+    'sk' => 'test'
 ];
