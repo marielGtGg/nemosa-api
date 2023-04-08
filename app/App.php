@@ -2,12 +2,13 @@
 
 use Core\Config;
 use Core\Database;
-use Core\StringHandler;
+use Stripe\StripeClient;
 
 class App {
 
     private static $_instance;
     private $dbInstance;
+    private $stripe;
 
     //singleton
     public static function getInstance() {
@@ -33,6 +34,14 @@ class App {
             $this->dbInstance = new Database($config->get('db_name'), $config->get('db_server'), $config->get('db_user'), $config->get('db_password'));
         }
         return $this->dbInstance;
+    }
+
+    public function getStripe() {
+        $config = Config::getInstance(ROOT . '/config/config.php');
+        if ($this->stripe === null) {
+            $this->stripe = new StripeClient($config->get('stripe_test_key'));
+        }
+        return $this->stripe;
     }
 
     public function getTable($name) {

@@ -8,8 +8,9 @@ require_once('vendor/autoload.php');
 require_once(ROOT . '/app/App.php');
 App::load();
 
-$config = Config::getInstance(ROOT . '/config/config.php');
-$stripe = new \Stripe\StripeClient($config->stripe_test_key);
+$stripe = App::getInstance()->getStripe();
+
+$products = $stripe->products->all();
 
 // $product = $stripe->products->create([
 //   'name' => 'Starter Subscription',
@@ -30,22 +31,33 @@ $stripe = new \Stripe\StripeClient($config->stripe_test_key);
 
 // //unset($_SESSION['cart']);
 
-if (isset($_GET['page'])) {
-    $page = $_GET['page'];
-} else {
-    $page = '';
-}
+// if (isset($_GET['page'])) {
+//     $page = $_GET['page'];
+// } else {
+//     $page = '';
+// }
 
-if ($page !== '') {
-    $page = explode('.', $page);
-    $controller = 'App\Controller\\' . ucfirst($page[0]) . 'Controller';
-    $method = $page[1];
+// if ($page !== '') {
+//     $page = explode('.', $page);
+//     $controller = 'App\Controller\\' . ucfirst($page[0]) . 'Controller';
+//     $method = $page[1];
     
-    $controller = new $controller();
-    $data = $controller->$method();
-    
+//     $controller = new $controller();
+//     $data = $controller->$method();
+    $data = [];
+    foreach ($products->data as $product) {
+        $newProduct =  [
+            'id' => $product->id,
+            'name' => $product->name,
+            'img' => (isset($product->images[0]) ? $product->images[0] : ''),
+            'price' => $stripe->prices->retrieve($product->default_price)->unit_amount
+        ];
+        $data[] = $newProduct;
+    }
+    // echo '<pre>';
     echo json_encode($data);
-}
+    // echo '</pre>';
+// }
 
 return;
 ?>
