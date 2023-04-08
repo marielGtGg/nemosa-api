@@ -5,5 +5,5 @@ return [
     'db_server' => 'localhost',
     'db_user' => '',
     'db_password' => '',
-    'sk' => 'test'
+    'sk' => 'test2'
 ];
