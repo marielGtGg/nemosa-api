@@ -36,17 +36,22 @@ class App {
         return $this->dbInstance;
     }
 
-    public function getStripe() {
-        $config = Config::getInstance(ROOT . '/config/config.php');
-        if ($this->stripe === null) {
-            $this->stripe = new StripeClient($config->get('stripe_test_key'));
-        }
-        return $this->stripe;
-    }
-
     public function getTable($name) {
         $className = '\\App\\Model\\' . ucfirst($name) . 'Table';
         return new $className($this->getDb());
+    }
+
+    public function getStripeInstance() {
+        $config = Config::getInstance(ROOT . '/config/config.php');
+        if ($this->stripe === null) {
+            $this->stripe = new StripeClient($config->get('stripe_test_key'));
+        }    
+        return $this->stripe;
+    } 
+    
+    public function getStripeTable($name) {
+        $className = '\\App\\Model\\' . ucfirst($name) . 'StripeTable';
+        return new $className($this->getStripeInstance());
     }
 
 }
