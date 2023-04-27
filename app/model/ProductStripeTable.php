@@ -2,26 +2,21 @@
 namespace App\Model;
 
 use Core\Model\StripeTable;
+use App;
+use App\Model\ProductEntity;
 
 class ProductStripeTable extends StripeTable {
 
-    public function all() {
-        $products = $this->stripe->products->all(['active' => true]);
-        $data = [];
-        foreach ($products->data as $product) {
-            $newProduct =  [
-                'id' => $product->id,
-                'name' => $product->name,
-                'img' => (isset($product->images[0]) ? $product->images[0] : null),
-                'price' => $this->stripe->prices->retrieve($product->default_price)->unit_amount,
-                'woods' => $product->metadata->woods,
-                'finish' => $product->metadata->finish,
-                'measurements' => $product->metadata->measurements,
-                'description' => $product->description,
-            ];
-            $data[] = $newProduct;
+    private function getProductInstances($datas) {
+        $products = [];
+        foreach ($datas as $product) {
+            $products[] = App::getInstance()->getStripeEntity('product', $product);
         }
-        return $data;
+        return $products;
+    }
+    
+    public function all() {
+        return $this->getProductInstances($this->stripe->products->all(['active' => true])->data);
     }
 
     // public function find($id) {

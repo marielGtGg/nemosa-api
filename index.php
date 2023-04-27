@@ -21,6 +21,9 @@ if ($query !== '') {
     $data = $controller->$method();
 
     echo json_encode($data);
+    // echo '<pre>';
+    // var_dump($data);
+    // echo '</pre>';
 }
 
 return;

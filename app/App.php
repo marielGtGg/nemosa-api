@@ -54,4 +54,9 @@ class App {
         return new $className($this->getStripeInstance());
     }
 
+    public function getStripeEntity($name, $data) {
+        $className = '\\App\\Model\\' . ucfirst($name) . 'StripeEntity';
+        return new $className($this->getStripeInstance(), $data);
+    }
+
 }
