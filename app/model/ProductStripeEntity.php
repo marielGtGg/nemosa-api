@@ -9,10 +9,13 @@ class ProductStripeEntity extends StripeEntity {
     public $name;
     public $img;
     public $price;
+    public $description;
     public $woods;
     public $finish;
     public $measurements;
-    public $description;
+    public $teaser1;
+    public $teaser2;
+    public $teaser3;
 
     public function __construct($stripe, $product) {
         parent::__construct($stripe);
@@ -20,10 +23,13 @@ class ProductStripeEntity extends StripeEntity {
         $this->name = $product->name;
         $this->img = (isset($product->images[0]) ? $product->images[0] : null);
         $this->price = $this->stripe->prices->retrieve($product->default_price)->unit_amount;
+        $this->description = $product->description;
         $this->woods = $product->metadata->woods;
         $this->finish = $product->metadata->finish;
         $this->measurements = $product->metadata->measurements;
-        $this->description = $product->description;
+        $this->teaser1 = $product->metadata->teaser1;
+        $this->teaser2 = $product->metadata->teaser2;
+        $this->teaser3 = $product->metadata->teaser3;
     }
 
 }

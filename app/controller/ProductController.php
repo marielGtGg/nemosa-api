@@ -30,10 +30,15 @@ class ProductController {
     // }
 
     public function all() {
-        return $this->productStripeTable->all(); 
+        return $this->productStripeTable->products; 
     }
 
-    // public function find() {
-    //     return $this->productTable->find($_GET['id']);
-    // }
+    public function find() {
+        return $this->productStripeTable->find($_GET['id']);
+    }
+    
+    public function teaser() {
+        return $this->productStripeTable->teaser();
+    }
+
 }
