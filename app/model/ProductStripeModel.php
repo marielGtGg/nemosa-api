@@ -7,11 +7,8 @@ use App\Model\ProductEntity;
 
 class ProductStripeModel extends StripeModel {
 
-    public $products;
-
     public function __construct($stripe) {
         parent::__construct($stripe);
-        $this->products = $this->getProductInstances($this->stripe->products->all(['active' => true])->data);
     }
     
     private function getProductInstances($datas) {
@@ -23,6 +20,10 @@ class ProductStripeModel extends StripeModel {
             return $products;
         }
         return App::getInstance()->getStripeEntity('product', $datas);
+    }
+
+    public function all() {
+        return $this->getProductInstances($this->stripe->products->all(['active' => true])->data);
     }
 
     public function find($id) {

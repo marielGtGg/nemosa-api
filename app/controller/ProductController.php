@@ -12,7 +12,7 @@ class ProductController {
     }
 
     public function all() {
-        return $this->productStripeModel->products; 
+        return $this->productStripeModel->all(); 
     }
 
     public function find() {
