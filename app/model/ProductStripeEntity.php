@@ -19,10 +19,14 @@ class ProductStripeEntity extends StripeModel {
 
     public function __construct($stripe, $product) {
         parent::__construct($stripe);
+
+        $price = $this->stripe->prices->retrieve($product->default_price);
+
         $this->id = $product->id;
         $this->name = $product->name;
         $this->img = (isset($product->images[0]) ? $product->images[0] : null);
-        $this->price = $this->stripe->prices->retrieve($product->default_price)->unit_amount;
+        $this->price_id = $price->id;
+        $this->price = $price->unit_amount;
         $this->description = $product->description;
         $this->woods = $product->metadata->woods;
         $this->finish = $product->metadata->finish;

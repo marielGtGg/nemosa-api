@@ -18,17 +18,16 @@ class CartStripeModel extends StripeModel {
     public function checkout($params) {
         $checkoutSession = $this->stripe->checkout->sessions->create([
             'success_url' => $params['success_url'],
+            'cancel_url' => $params['cancel_url'],
             'line_items' => [
               [
-                'price_data' => [
-                    'currency' => 'CAD',
-                    'product' => ''
-                ],
+                'price' => 'price_1MuMzaFg5qjjHaHiE2kU6Sqy',
                 'quantity' => 2,
               ],
             ],
             'mode' => 'payment',
         ]);
+        return ['checkout_url' => $checkoutSession->url];
     }
 
     // public function addItem($item) {
