@@ -1,9 +1,9 @@
 <?php
 namespace App\Model;
 
-use Core\Model\StripeEntity;
+use Core\Model\StripeModel;
 
-class ProductStripeEntity extends StripeEntity {
+class ProductStripeEntity extends StripeModel {
 
     public $id;
     public $name;

@@ -1,11 +1,11 @@
 <?php
 namespace App\Model;
 
-use Core\Model\StripeTable;
+use Core\Model\StripeModel;
 use App;
 use App\Model\ProductEntity;
 
-class ProductStripeTable extends StripeTable {
+class ProductStripeModel extends StripeModel {
 
     public $products;
 

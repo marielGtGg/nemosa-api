@@ -49,8 +49,8 @@ class App {
         return $this->stripe;
     } 
     
-    public function getStripeTable($name) {
-        $className = '\\App\\Model\\' . ucfirst($name) . 'StripeTable';
+    public function getStripeModel($name) {
+        $className = '\\App\\Model\\' . ucfirst($name) . 'StripeModel';
         return new $className($this->getStripeInstance());
     }
 

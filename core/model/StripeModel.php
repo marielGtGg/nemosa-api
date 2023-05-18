@@ -1,7 +1,7 @@
 <?php
 namespace Core\Model;
 
-class StripeTable {
+class StripeModel {
 
     protected $stripe;
 
