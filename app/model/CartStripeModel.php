@@ -1,20 +1,34 @@
 <?php
 namespace App\Model;
    
-class CartStripeModel {
+use Core\Model\StripeModel;
+class CartStripeModel extends StripeModel {
 
-    public $items;
+    // public $items;
 
-    public function __construct() {
-        if (isset($_SESSION['cart'])) {
-            $this->items = $_SESSION['cart'];
-        } else {
-            $this->items = [];
-        }
+    public function __construct($stripe) {
+        parent::__construct($stripe);
+        // if (isset($_SESSION['cart'])) {
+        //     $this->items = $_SESSION['cart'];
+        // } else {
+        //     $this->items = [];
+        // }
     }
 
-    public function __destruct() {
-        $_SESSION['cart'] = $this->items;
+    public function checkout($params) {
+        $checkoutSession = $this->stripe->checkout->sessions->create([
+            'success_url' => $params['success_url'],
+            'line_items' => [
+              [
+                'price_data' => [
+                    'currency' => 'CAD',
+                    'product' => ''
+                ],
+                'quantity' => 2,
+              ],
+            ],
+            'mode' => 'payment',
+        ]);
     }
 
     // public function addItem($item) {

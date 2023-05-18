@@ -8,7 +8,9 @@ require_once('vendor/autoload.php');
 require_once(ROOT . '/app/App.php');
 App::load();
 
-//unset($_SESSION['cart']);
+if (isset($_POST)) {
+    $post = json_decode(file_get_contents('php://input'), true);
+}
 
 $query = (isset($_GET['q']) ? $_GET['q'] : '');
 
@@ -18,7 +20,7 @@ if ($query !== '') {
     $method = $query[1];
     
     $controller = new $controller();
-    $data = $controller->$method();
+    $data = $controller->$method(isset($post) ? $post : null);
 
     echo json_encode($data);
     // echo '<pre>';

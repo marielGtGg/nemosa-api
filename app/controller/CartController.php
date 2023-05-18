@@ -15,8 +15,8 @@ class CartController {
         $this->cartStripeModel = App::getInstance()->getStripeModel('cart');
     }
 
-    public function checkout() {
-        return $this->cartStripeModel->checkout();
+    public function checkout($post) {
+        return $this->cartStripeModel->checkout($post);
     }
 
     // protected function render($view, $variables = []) {
